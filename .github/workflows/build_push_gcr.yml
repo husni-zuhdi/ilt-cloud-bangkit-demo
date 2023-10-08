@@ -31,7 +31,7 @@ jobs:
           
       - name: Build Docker Image
         run: |-
-          cd $ILT_NAME
+          cd ${{ github.workspace }}/$ILT_NAME
           docker build -t $ILT_NAME:$ILT_VERSION -f ./Dockerfile.prod .
         
       - name: Configure Docker Client
