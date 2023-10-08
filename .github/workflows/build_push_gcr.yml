@@ -39,5 +39,5 @@ jobs:
         
       - name: Push Docker Image to Google Container Registry
         run: |-
-          docker tag $ILT_NAME:$ILT_VERSION gcr.io/${{ secrets.GCP_PROJECT_ID }}/$ILT_NAME:$ILT_VERSION 
-          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/$ILT_NAME:$ILT_VERSION 
+          docker tag $ILT_NAME:$ILT_VERSION gcr.io/$GCP_PROJECT/$ILT_NAME:$ILT_VERSION 
+          docker push gcr.io/$GCP_PROJECT/$ILT_NAME:$ILT_VERSION 
