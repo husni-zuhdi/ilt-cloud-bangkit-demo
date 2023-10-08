@@ -1,0 +1,10 @@
+version: "2"
+sql:
+  - engine: "postgresql"
+    queries: "migrations/query.sql"
+    schema: "migrations/schema.sql"
+    gen:
+      go:
+        emit_json_tags: true
+        package: "users"
+        out: "pkg/model/users"

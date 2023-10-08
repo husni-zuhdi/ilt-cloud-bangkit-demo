@@ -1,0 +1,37 @@
+name: ilt-4
+version: "3"
+
+services:
+  db:
+    image: postgres:12-alpine
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=mysecretpassword
+      - POSTGRES_USER=admin
+      - POSTGRES_DB=ilt4
+    ports:
+      - 5432:5432
+    # volumes:
+    #   - db-data:/var/lib/postgresql/data
+    networks:
+      - bridge
+  service:
+    image: ilt4:0.1.0-beta
+    ports:
+      - 8080:8080
+    restart: always
+    depends_on:
+      - db
+    networks:
+      - bridge
+    environment:
+      - DB_USER=admin
+      - DB_PASSWORD=mysecretpassword
+      - DB_HOST=db
+      - DB_PORT=5432 
+      - DB_NAME=ilt4
+volumes:
+  db-data: {}
+networks:
+  bridge:
+    driver: bridge
