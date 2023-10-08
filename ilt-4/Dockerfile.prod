@@ -1,0 +1,24 @@
+# Build the application from source
+FROM golang:1.19 AS build-stage
+
+WORKDIR /app
+
+COPY go.mod go.sum ./
+RUN go mod download
+
+COPY . ./
+
+RUN CGO_ENABLED=0 GOOS=linux go build -pkgdir pkg -o /ilt4 ./cmd/ilt-4/main.go
+
+# Deploy the application binary into a lean image
+FROM gcr.io/distroless/base-debian11 AS build-release-stage
+
+WORKDIR /
+
+COPY --from=build-stage /ilt4 /ilt4
+
+EXPOSE 8080
+
+USER nonroot:nonroot
+
+ENTRYPOINT ["/ilt4"]
