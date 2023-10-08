@@ -16,16 +16,16 @@ jobs:
       - name: Setup Environment Variables
         run: |-
           echo "TAG_NAME=${{ github.ref_name }}" >> "$GITHUB_ENV"
-          echo "ILT_NAME=$(echo $TAG_NAME | cut -d "/" -f1)" >> "$GITHUB_ENV"
-          echo "ILT_VERSION=$(echo $TAG_NAME | cut -d "/" -f2)" >> "$GITHUB_ENV"
+          echo "ILT_NAME=$(echo ${{ github.ref_name }} | cut -d "/" -f1)" >> "$GITHUB_ENV"
+          echo "ILT_VERSION=$(echo ${{ github.ref_name}} | cut -d "/" -f2)" >> "$GITHUB_ENV"
 
       - name: Checkout Code
         uses: actions/checkout@v1
 
       - name: Login to GCR
-        uses: google-github-actions/setup-gcloud@v0.3.0
+        uses: google-github-actions/auth
         with:
-          service_account_key: ${{ secrets.SERVICE_ACCOUNT_KEY }}
+          credentials_json: ${{ secrets.SERVICE_ACCOUNT_KEY }}
           project_id: ${{ secrets.GCP_PROJECT_ID }}
           export_default_credentials: true
           
