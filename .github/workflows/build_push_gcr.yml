@@ -1,0 +1,43 @@
+name: Build and Push to Google Container Registry
+# create simple trigger based on everytime we create new tag in this repository
+on:
+  push:
+    tags:
+      # Push events to every tag including hierarchical tags like v1.0/beta
+      - "**"
+
+jobs:
+  BuildPush:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Setup Environment Variables
+        run: |-
+          echo "TAG_NAME=${{ github.ref_name }}" >> "$GITHUB_ENV"
+          echo "ILT_NAME=$(echo $TAG_NAME | cut -d "/" -f1)" >> "$GITHUB_ENV"
+          echo "ILT_VERSION=$(echo $TAG_NAME | cut -d "/" -f2)" >> "$GITHUB_ENV"
+
+      - name: Checkout Code
+        uses: actions/checkout@v1
+
+      - name: Login to GCR
+        uses: google-github-actions/setup-gcloud@v0.3.0
+        with:
+          service_account_key: ${{ secrets.SERVICE_ACCOUNT_KEY }}
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          export_default_credentials: true
+          
+      - name: Build Docker Image
+        run: |-
+          cd $ILT_NAME
+          docker build -t $ILT_NAME:$ILT_VERSION .
+        
+      - name: Configure Docker Client
+        run: gcloud auth configure-docker --quiet
+        
+      - name: Push Docker Image to Google Container Registry
+        run: |-
+          docker tag $ILT_NAME:$ILT_VERSION gcr.io/${{ secrets.GCP_PROJECT_ID }}/$ILT_NAME:$ILT_VERSION 
+          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/$ILT_NAME:$ILT_VERSION 
