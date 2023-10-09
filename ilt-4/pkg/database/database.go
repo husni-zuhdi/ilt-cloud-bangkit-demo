@@ -1,10 +1,10 @@
 package database
 
 import (
-    "context"
+	"context"
 	"fmt"
 
-    "github.com/hazunanafaru/ilt-cloud-bangkit-demo/ilt-4/pkg/model/users"
+	"github.com/hazunanafaru/ilt-cloud-bangkit-demo/ilt-4/pkg/model/users"
 )
 
 // Service define a service
@@ -26,8 +26,8 @@ func (s *Service) Get(ctx context.Context, id int64) (*users.User, error) {
 		return nil, fmt.Errorf("error reading from database: %w", err)
 	}
 	return &users.User{
-		ID:       u.ID,
-		Name:     u.Name,
+		ID:   u.ID,
+		Name: u.Name,
 	}, nil
 }
 
@@ -40,8 +40,8 @@ func (s *Service) List(ctx context.Context) ([]*users.User, error) {
 	var list_users []*users.User
 	for _, u := range us {
 		list_users = append(list_users, &users.User{
-			ID:       u.ID,
-			Name:     u.Name,
+			ID:   u.ID,
+			Name: u.Name,
 		})
 	}
 	return list_users, nil
@@ -60,8 +60,8 @@ func (s *Service) Create(ctx context.Context, Name string) (int64, error) {
 // Update user data
 func (s *Service) Update(ctx context.Context, user *users.User) error {
 	err := s.query.UpdateUser(ctx, users.UpdateUserParams{
-        ID: user.ID,
-        Name: user.Name,
+		ID:   user.ID,
+		Name: user.Name,
 	})
 	if err != nil {
 		return fmt.Errorf("error updating user: %w", err)
