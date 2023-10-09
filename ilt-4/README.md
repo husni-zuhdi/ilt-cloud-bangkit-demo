@@ -1,4 +1,4 @@
-# ILT 4 Demo: Connect to Cloud SQL
+# ILT 4 Demo: Golang Backend with Cloud Run and Cloud SQL
 
 We'll create a simple backend service that store user data in SQL database. We'll use CloudSQL managed service solution from Google Cloud Platform
 
