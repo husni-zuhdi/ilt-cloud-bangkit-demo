@@ -54,3 +54,10 @@ We'll create a simple backend service that store user data in SQL database. We'l
 ## Production Step
 
 1. In Progress
+
+## References
+
+* [Creating an API using Go and sqlc](https://eltonminetto.dev/en/post/2022-10-22-creating-api-using-go-sqlc/)
+* [Automating Docker Image Push to Google Container Registry (GCR) and GitHub Packages / GitHub Container Registry (GHCR) using GitHub Action Pipeline](https://medium.com/@ardhanyoga/automating-docker-image-push-to-github-packages-github-container-registry-ghcr-and-google-3ffea20f595b)
+* [PostgreSQL Cloud SQL Private IP Example](https://github.com/gruntwork-io/terraform-google-sql/blob/master/examples/postgres-private-ip/README.md)
+* [Build your Go image](https://docs.docker.com/language/golang/build-images/#overview)
