@@ -67,9 +67,3 @@ variable "svpc_access" {
   description = "Serverless VPC Access connector name."
   type        = string
 }
-
-variable "name_override" {
-  description = "Overiding Cloud Run name."
-  type        = string
-  default     = null
-}
