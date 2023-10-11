@@ -1,36 +1,16 @@
 # ------------------------------------------------------------------------------
-# LAUNCH A POSTGRES CLOUD SQL PRIVATE IP INSTANCE
-# ------------------------------------------------------------------------------
-
-# ------------------------------------------------------------------------------
-# CONFIGURE OUR GCP CONNECTION
-# ------------------------------------------------------------------------------
-
-provider "google-beta" {
-  project = var.project
-  region  = var.region
-}
-
-terraform {
-  # This module is now only being tested with Terraform 1.0.x. However, to make upgrading easier, we are setting
-  # 0.12.26 as the minimum version, as that version added support for required_providers with source URLs, making it
-  # forwards compatible with 1.0.x code.
-  required_version = ">= 0.12.26"
-
-  required_providers {
-    google-beta = {
-      source  = "hashicorp/google-beta"
-      version = "~> 3.57.0"
-    }
-  }
-}
-
-# ------------------------------------------------------------------------------
 # CREATE A RANDOM SUFFIX AND PREPARE RESOURCE NAMES
 # ------------------------------------------------------------------------------
 
 resource "random_id" "name" {
   byte_length = 2
+}
+
+data "terraform_remote_state" "vpc" {
+  backend = "local"
+  config = {
+    path = "../gcp-vpc/terraform.tfstate"
+  }
 }
 
 locals {
@@ -43,10 +23,10 @@ locals {
 # ------------------------------------------------------------------------------
 
 # Get Data of VPC
-data "google_compute_network" "private_network" {
-  provider = google-beta
-  name     = var.vpc_network_name
-}
+# data "google_compute_network" "private_network" {
+#   provider = google-beta
+#   name     = var.vpc_network_name
+# }
 
 # ------------------------------------------------------------------------------
 # CREATE DATABASE INSTANCE WITH PRIVATE IP
@@ -81,7 +61,7 @@ module "postgres" {
   master_user_host = "%"
 
   # Pass the private network link to the module
-  private_network = data.google_compute_network.private_network.self_link
+  private_network = data.terraform_remote_state.vpc.outputs.network_self_link
 
   custom_labels = {
     test-id = "postgres-private-ip-example"

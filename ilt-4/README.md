@@ -1,6 +1,6 @@
 # ILT 4 Demo: Golang Backend with Cloud Run and Cloud SQL
 
-We'll create a simple backend service that store user data in SQL database. We'll use CloudSQL managed service solution from Google Cloud Platform
+We'll create a simple backend service that stores user data in an SQL database. We'll use CloudSQL-managed service solution from the Google Cloud Platform
 
 ## Stacks
 
@@ -53,17 +53,7 @@ We'll create a simple backend service that store user data in SQL database. We'l
 
 ## Production Step
 
-⚠️ Pre-requisites
-To proceed with the production step, you need to prepare this environment inside a GCP project
-
-- VPC Network (with minimum this configuration)
-   * Subnet (with minimum this configuration)
-     - Private Service Connection (with this configuration)
-       * 1 Allocated IP ranges
-       * Private Service Connection to servicenetworking[.]googleapis[.]com
-   * Serverless VPC Access
-
-1. Push dokcer image from Development Step # 2 to Google Container Registry
+1. Push docker image from Development Step # 2 to Google Container Registry
    ```
    docker tag <name_ilt e.g ilt4>:<ilt_version e.g 0.1.0> gcr.io/<your_project_id>/<name_ilt e.g ilt4>:<ilt_version e.g 0.1.0>
    docker push gcr.io/<your_project_id>/<name_ilt e.g ilt4>:<ilt_version e.g 0.1.0>
@@ -76,9 +66,8 @@ To proceed with the production step, you need to prepare this environment inside
    PROJECT_ID="<your_gcp_project_id>"
    REGION="<your_prefered_region>"
    ILT_NAME="ilt-4"
-   VPC_NETWORK_NAME="<your_vpc_network_name>"
    CLOUDSQL_NAME_PREFIX="<you_prefered_prefix>"
-   SVPC_NAME="<your_serverless_vpc_access_name>"
+   SUBNET_IP_RANGE="11.1.0.0/16"
    EOT
    export $(xargs < .env)
    ```
@@ -93,23 +82,27 @@ To proceed with the production step, you need to prepare this environment inside
    export TF_VAR_db_password="$DB_PASSWORD"
    export TF_VAR_db_port="$DB_PORT"
    export TF_VAR_db_name="$DB_NAME"
-   export TF_VAR_vpc_network_name="$VPC_NETWORK_NAME"
    export TF_VAR_name_prefix="$CLOUDSQL_NAME_PREFIX"
    export TF_VAR_master_user_name="$DB_USER"
    export TF_VAR_master_user_password="$DB_PASSWORD"
-   export TF_VAR_svpc_access="$SVPC_NAME"
+   export TF_VAR_subnet_ip_range="$SUBNET_IP_RANGE"
+   export TF_VAR_subnet_region="$REGION"
    ```
-5. Got to `infra/ilt-4/gcp-cloud-sql` to create a new CloudSQL instance
-   ```
-   terraform apply # Then type yes
-   ```
-6. After CloudSQL was created. Go to GCP Console > Cloud SQL > your_instance
-7. Click Import in top ribbon. Select the migration schema that you uploaded to Google Cloud Storage. Select the `users` database. Then start the migration by clicking `Import`
-8. Got to `infra/ilt-4/gcp-cloud-run` to create a new Cloud Run container
+5. Got to `infra/ilt-4/gcp-vpc` to create a new VPC network with a subnet, private service connection, and serverless VPC access
    ```
    terraform apply # Then type yes
    ```
-9. In the terraform output there will be variable service_url that contain your API url. You can test your API with it
+6. Got to `infra/ilt-4/gcp-cloud-sql` to create a new CloudSQL instance
+   ```
+   terraform apply # Then type yes
+   ```
+7. After CloudSQL was created. Go to GCP Console > Cloud SQL > your_instance
+8. Click Import in the top ribbon. Select the migration schema that you uploaded to Google Cloud Storage. Select the `users` database. Then start the migration by clicking `Import`
+9. Got to `infra/ilt-4/gcp-cloud-run` to create a new Cloud Run container
+   ```
+   terraform apply # Then type yes
+   ```
+10. In the terraform output there will be a variable service_url that contains your API URL. You can test your API with it
 
 ## References
 

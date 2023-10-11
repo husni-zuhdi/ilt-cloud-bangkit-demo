@@ -21,10 +21,11 @@ data "terraform_remote_state" "cloudsql" {
   }
 }
 
-locals {
-  db_host                       = data.terraform_remote_state.cloudsql.outputs.master_private_ip
-  db_name                       = data.terraform_remote_state.cloudsql.outputs.db_name
-  cloudsql_connection_instances = data.terraform_remote_state.cloudsql.outputs.master_proxy_connection
+data "terraform_remote_state" "vpc" {
+  backend = "local"
+  config = {
+    path = "../gcp-vpc/terraform.tfstate"
+  }
 }
 
 data "google_iam_policy" "noauth" {
@@ -41,7 +42,11 @@ resource "random_id" "name" {
 }
 
 locals {
-  service_name = format("%s-%s", var.ilt_name, random_id.name.hex)
+  db_host                       = data.terraform_remote_state.cloudsql.outputs.master_private_ip
+  db_name                       = data.terraform_remote_state.cloudsql.outputs.db_name
+  cloudsql_connection_instances = data.terraform_remote_state.cloudsql.outputs.master_proxy_connection
+  service_name                  = format("%s-%s", var.ilt_name, random_id.name.hex)
+  svpc_connector_name           = data.terraform_remote_state.vpc.outputs.svpc_connector_name
 }
 
 module "cloud_run" {
@@ -72,7 +77,7 @@ module "cloud_run" {
     "generated-by"                            = "terraform"
     "autoscaling.knative.dev/maxScale"        = var.max_scale
     "autoscaling.knative.dev/minScale"        = var.min_scale
-    "run.googleapis.com/vpc-access-connector" = var.svpc_access
+    "run.googleapis.com/vpc-access-connector" = local.svpc_connector_name
     "run.googleapis.com/cloudsql-instances"   = local.cloudsql_connection_instances
     "run.googleapis.com/vpc-access-egress"    = "private-ranges-only"
   }
