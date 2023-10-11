@@ -76,10 +76,8 @@ To proceed with the production step, you need to prepare this environment inside
    PROJECT_ID="<your_gcp_project_id>"
    REGION="<your_prefered_region>"
    ILT_NAME="ilt-4"
-   VPC_NETWORK_NAME="<your_vpc_network_name>"
    CLOUDSQL_NAME_PREFIX="<you_prefered_prefix>"
-   SVPC_NAME="<your_serverless_vpc_access_name>"
-   SUBNET_IP_RANGE="10.1.0.0/16"
+   SUBNET_IP_RANGE="11.1.0.0/16"
    EOT
    export $(xargs < .env)
    ```
@@ -94,11 +92,9 @@ To proceed with the production step, you need to prepare this environment inside
    export TF_VAR_db_password="$DB_PASSWORD"
    export TF_VAR_db_port="$DB_PORT"
    export TF_VAR_db_name="$DB_NAME"
-   export TF_VAR_vpc_network_name="$VPC_NETWORK_NAME"
    export TF_VAR_name_prefix="$CLOUDSQL_NAME_PREFIX"
    export TF_VAR_master_user_name="$DB_USER"
    export TF_VAR_master_user_password="$DB_PASSWORD"
-   export TF_VAR_svpc_access="$SVPC_NAME"
    export TF_VAR_subnet_ip_range="$SUBNET_IP_RANGE"
    export TF_VAR_subnet_region="$REGION"
    ```
