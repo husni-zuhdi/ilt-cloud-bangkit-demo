@@ -24,12 +24,32 @@ output "network_self_link" {
   description = "The URI of the VPC being created"
 }
 
-output "project_id" {
-  value       = google_compute_network.vpc_network.project
-  description = "VPC project id"
+output "subnet_ip_range" {
+  value       = google_compute_subnetwork.vpc_subnetwork.name
+  description = "The IP range of created subnet"
 }
 
-output "auto" {
-  value       = google_compute_network.vpc_network.auto_create_subnetworks
-  description = "The value of the auto mode setting"
+output "subnet_self_link" {
+  value       = google_compute_subnetwork.vpc_subnetwork.self_link
+  description = "The self link of created subnet"
+}
+
+output "private_ip_self_link" {
+  value       = google_compute_global_address.private_ip_alloc.self_link
+  description = "The self link of created private ip range"
+}
+
+output "svpc_connector_name" {
+  value       = google_vpc_access_connector.svpc_connector.name
+  description = "The name of Serverless VPC Access Connector name"
+}
+
+output "svpc_connector_ip_range" {
+  value       = google_vpc_access_connector.svpc_connector.ip_cidr_range
+  description = "The ip range of Serverless VPC Access Connector name"
+}
+
+output "svpc_connector_status" {
+  value       = google_vpc_access_connector.svpc_connector.state
+  description = "The state of Serverless VPC Access Connector name"
 }
