@@ -21,12 +21,6 @@ data "terraform_remote_state" "cloudsql" {
   }
 }
 
-locals {
-  db_host                       = data.terraform_remote_state.cloudsql.outputs.master_private_ip
-  db_name                       = data.terraform_remote_state.cloudsql.outputs.db_name
-  cloudsql_connection_instances = data.terraform_remote_state.cloudsql.outputs.master_proxy_connection
-}
-
 data "google_iam_policy" "noauth" {
   binding {
     role = "roles/run.invoker"
@@ -41,7 +35,10 @@ resource "random_id" "name" {
 }
 
 locals {
-  service_name = format("%s-%s", var.ilt_name, random_id.name.hex)
+  db_host                       = data.terraform_remote_state.cloudsql.outputs.master_private_ip
+  db_name                       = data.terraform_remote_state.cloudsql.outputs.db_name
+  cloudsql_connection_instances = data.terraform_remote_state.cloudsql.outputs.master_proxy_connection
+  service_name                  = format("%s-%s", var.ilt_name, random_id.name.hex)
 }
 
 module "cloud_run" {
