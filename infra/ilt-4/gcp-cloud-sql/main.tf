@@ -6,6 +6,13 @@ resource "random_id" "name" {
   byte_length = 2
 }
 
+data "terraform_remote_state" "vpc" {
+  backend = "local"
+  config = {
+    path = "../gcp-vpc/terraform.tfstate"
+  }
+}
+
 locals {
   # If name_override is specified, use that - otherwise use the name_prefix with a random string
   instance_name = var.name_override == null ? format("%s-%s-%s", var.name_prefix, var.ilt_name, random_id.name.hex) : var.name_override
@@ -16,10 +23,10 @@ locals {
 # ------------------------------------------------------------------------------
 
 # Get Data of VPC
-data "google_compute_network" "private_network" {
-  provider = google-beta
-  name     = var.vpc_network_name
-}
+# data "google_compute_network" "private_network" {
+#   provider = google-beta
+#   name     = var.vpc_network_name
+# }
 
 # ------------------------------------------------------------------------------
 # CREATE DATABASE INSTANCE WITH PRIVATE IP
@@ -54,7 +61,7 @@ module "postgres" {
   master_user_host = "%"
 
   # Pass the private network link to the module
-  private_network = data.google_compute_network.private_network.self_link
+  private_network = data.terraform_remote_state.vpc.outputs.network_self_link
 
   custom_labels = {
     test-id = "postgres-private-ip-example"
