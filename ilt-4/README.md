@@ -53,7 +53,63 @@ We'll create a simple backend service that store user data in SQL database. We'l
 
 ## Production Step
 
-1. In Progress
+⚠️ Pre-requisites
+To proceed with the production step, you need to prepare this environment inside a GCP project
+
+- VPC Network (with minimum this configuration)
+   * Subnet (with minimum this configuration)
+     - Private Service Connection (with this configuration)
+       * 1 Allocated IP ranges
+       * Private Service Connection to servicenetworking[.]googleapis[.]com
+   * Serverless VPC Access
+
+1. Push dokcer image from Development Step # 2 to Google Container Registry
+   ```
+   docker tag <name_ilt e.g ilt4>:<ilt_version e.g 0.1.0> gcr.io/<your_project_id>/<name_ilt e.g ilt4>:<ilt_version e.g 0.1.0>
+   docker push gcr.io/<your_project_id>/<name_ilt e.g ilt4>:<ilt_version e.g 0.1.0>
+   ```
+2. Upload the migration schema that is located on `ilt-4/migrations/migrate/*.up.sql` to any Google Cloud Storage bucket
+3. Update your `.env` file from Development Step # 1 with new envars
+   ```
+   cd ilt-4
+   cat << EOT >> .env
+   PROJECT_ID="<your_gcp_project_id>"
+   REGION="<your_prefered_region>"
+   ILT_NAME="ilt-4"
+   VPC_NETWORK_NAME="<your_vpc_network_name>"
+   CLOUDSQL_NAME_PREFIX="<you_prefered_prefix>"
+   SVPC_NAME="<your_serverless_vpc_access_name>"
+   EOT
+   export $(xargs < .env)
+   ```
+4. Prepare the terraform envars
+   ```
+   export GCR_VERSION="$(git describe --tags --abbrev=0 | cut -d '/' -f2)"
+   export TF_VAR_project="$PROJECT_ID"
+   export TF_VAR_region="$REGION"
+   export TF_VAR_ilt_name="$ILT_NAME"
+   export TF_VAR_image="gcr.io/$PROJECT_ID/$ILT_NAME:$GCR_VERSION"
+   export TF_VAR_db_user="$DB_USER"
+   export TF_VAR_db_password="$DB_PASSWORD"
+   export TF_VAR_db_port="$DB_PORT"
+   export TF_VAR_db_name="$DB_NAME"
+   export TF_VAR_vpc_network_name="$VPC_NETWORK_NAME"
+   export TF_VAR_name_prefix="$CLOUDSQL_NAME_PREFIX"
+   export TF_VAR_master_user_name="$DB_USER"
+   export TF_VAR_master_user_password="$DB_PASSWORD"
+   export TF_VAR_svpc_access="$SVPC_NAME"
+   ```
+5. Got to `infra/ilt-4/gcp-cloud-sql` to create a new CloudSQL instance
+   ```
+   terraform apply # Then type yes
+   ```
+6. After CloudSQL was created. Go to GCP Console > Cloud SQL > your_instance
+7. Click Import in top ribbon. Select the migration schema that you uploaded to Google Cloud Storage. Select the `users` database. Then start the migration by clicking `Import`
+8. Got to `infra/ilt-4/gcp-cloud-run` to create a new Cloud Run container
+   ```
+   terraform apply # Then type yes
+   ```
+9. In the terraform output there will be variable service_url that contain your API url. You can test your API with it
 
 ## References
 
