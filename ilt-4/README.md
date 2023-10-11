@@ -79,6 +79,7 @@ To proceed with the production step, you need to prepare this environment inside
    VPC_NETWORK_NAME="<your_vpc_network_name>"
    CLOUDSQL_NAME_PREFIX="<you_prefered_prefix>"
    SVPC_NAME="<your_serverless_vpc_access_name>"
+   SUBNET_IP_RANGE="10.1.0.0/16"
    EOT
    export $(xargs < .env)
    ```
@@ -98,6 +99,8 @@ To proceed with the production step, you need to prepare this environment inside
    export TF_VAR_master_user_name="$DB_USER"
    export TF_VAR_master_user_password="$DB_PASSWORD"
    export TF_VAR_svpc_access="$SVPC_NAME"
+   export TF_VAR_subnet_ip_range="$SUBNET_IP_RANGE"
+   export TF_VAR_subnet_region="$REGION"
    ```
 5. Got to `infra/ilt-4/gcp-cloud-sql` to create a new CloudSQL instance
    ```
