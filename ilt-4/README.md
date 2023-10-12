@@ -92,17 +92,17 @@ We'll create a simple backend service that stores user data in an SQL database. 
    export TF_VAR_private_ip_first_address="$PRIVATE_IP_FIRST_ADDRESS"
    export TF_VAR_svpc_connector_ip_range="$SVPC_IP_RANGE"
    ```
-5. Got to `infra/ilt-4/gcp-vpc` to create a new VPC network with a subnet, private service connection, and serverless VPC access
+5. Got to `ilt-4/infra/gcp-vpc` to create a new VPC network with a subnet, private service connection, and serverless VPC access
    ```
    terraform apply # Then type yes
    ```
-6. Got to `infra/ilt-4/gcp-cloud-sql` to create a new CloudSQL instance
+6. Got to `ilt-4/infra/gcp-cloud-sql` to create a new CloudSQL instance
    ```
    terraform apply # Then type yes
    ```
 7. After CloudSQL was created. Go to GCP Console > Cloud SQL > your_instance
 8. Click Import in the top ribbon. Select the migration schema that you uploaded to Google Cloud Storage. Select the `users` database. Then start the migration by clicking `Import`
-9. Got to `infra/ilt-4/gcp-cloud-run` to create a new Cloud Run container
+9. Got to `ilt-4/infra/gcp-cloud-run` to create a new Cloud Run container
    ```
    terraform apply # Then type yes
    ```
