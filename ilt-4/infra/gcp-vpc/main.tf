@@ -26,7 +26,7 @@ locals {
 }
 
 module "vpc" {
-  source = "../../modules/gcp-vpc"
+  source = "../../../modules/gcp-vpc"
 
   project         = var.project
   vpc_name        = local.vpc_name

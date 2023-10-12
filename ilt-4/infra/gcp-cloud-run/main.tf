@@ -50,7 +50,7 @@ locals {
 }
 
 module "cloud_run" {
-  source = "../../modules/gcp-cloud-run"
+  source = "../../../modules/gcp-cloud-run"
 
   service_name = local.service_name
   project_id   = var.project
