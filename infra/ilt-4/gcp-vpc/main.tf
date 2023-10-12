@@ -25,57 +25,21 @@ locals {
   svpc_name       = format("%s-svpc-connector-%s", var.ilt_name, random_id.name.hex)
 }
 
-# Activate Serverless VPC Access google API
-# resource "google_project_service" "vpcaccess-api" {
-#   project = var.project
-#   service = "vpcaccess.googleapis.com"
-# }
+module "vpc" {
+  source = "../../modules/gcp-vpc"
 
-# Create VPC network
-resource "google_compute_network" "vpc_network" {
-  project                 = var.project
-  name                    = local.vpc_name
-  auto_create_subnetworks = false
-  mtu                     = 1460
-}
+  project         = var.project
+  vpc_name        = local.vpc_name
+  subnet_name     = local.subnet_name
+  subnet_region   = var.subnet_region
+  subnet_ip_range = var.subnet_ip_range
 
-# Create a subnet inside VPC network
-resource "google_compute_subnetwork" "vpc_subnetwork" {
-  project                  = var.project
-  name                     = local.subnet_name
-  ip_cidr_range            = var.subnet_ip_range
-  region                   = var.subnet_region
-  network                  = google_compute_network.vpc_network.id
-  private_ip_google_access = true
-}
+  private_ip_name          = local.private_ip_name
+  private_ip_first_address = var.private_ip_first_address
 
-# Allocate IP ranges for Private Service Connection
-resource "google_compute_global_address" "private_ip_alloc" {
-  project       = var.project
-  name          = local.private_ip_name
-  purpose       = "VPC_PEERING"
-  address       = "11.255.0.0"
-  address_type  = "INTERNAL"
-  prefix_length = 16
-  network       = google_compute_network.vpc_network.id
-}
-
-# Create a private connection
-resource "google_service_networking_connection" "service_network_connection" {
-  network                 = google_compute_network.vpc_network.id
-  service                 = "servicenetworking.googleapis.com"
-  reserved_peering_ranges = [google_compute_global_address.private_ip_alloc.name]
-}
-
-# Create Serverless VPC Access Connector
-resource "google_vpc_access_connector" "svpc_connector" {
-  project       = var.project
-  name          = local.svpc_name
-  network       = google_compute_network.vpc_network.self_link
-  machine_type  = "f1-micro"
-  min_instances = 2
-  max_instances = 3
-  region        = var.subnet_region
-  ip_cidr_range = "11.254.0.0/28"
-  depends_on    = [google_project_service.vpcaccess-api]
+  svpc_connector_name          = local.svpc_name
+  svpc_connector_machine_type  = var.svpc_connector_machine_type
+  svpc_connector_min_instances = var.svpc_connector_min_instances
+  svpc_connector_max_instances = var.svpc_connector_max_instances
+  svpc_connector_ip_range      = var.svpc_connector_ip_range
 }

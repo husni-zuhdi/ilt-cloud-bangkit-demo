@@ -19,8 +19,13 @@ variable "project" {
   type        = string
 }
 
-variable "ilt_name" {
-  description = "Name of the ILT session."
+variable "vpc_name" {
+  description = "The name of VPC."
+  type        = string
+}
+
+variable "subnet_name" {
+  description = "The name of single ubnet inside VPC."
   type        = string
 }
 
@@ -34,8 +39,18 @@ variable "subnet_region" {
   type        = string
 }
 
+variable "private_ip_name" {
+  description = "The name of Private IP Address."
+  type        = string
+}
+
 variable "private_ip_first_address" {
   description = "First IP address for Private IP Address Allocation with range /16."
+  type        = string
+}
+
+variable "svpc_connector_name" {
+  description = "The name of Serverless VPC Connector."
   type        = string
 }
 

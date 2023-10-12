@@ -14,22 +14,15 @@
  * limitations under the License.
  */
 
-output "network_name" {
-  value       = module.vpc.network_name
-  description = "The name of the VPC being created"
-}
+terraform {
+  required_version = ">=0.12.6"
 
-output "network_self_link" {
-  value       = module.vpc.network_self_link
-  description = "The URI of the VPC being created"
-}
-
-output "svpc_connector_name" {
-  value       = module.vpc.svpc_connector_name
-  description = "The name of Serverless VPC Access Connector name"
-}
-
-output "svpc_connector_status" {
-  value       = module.vpc.svpc_connector_status
-  description = "The status of Serverless VPC Access Connector name"
+  required_providers {
+    google = {
+      version = "~> 4.0"
+    }
+    null = {
+      version = "~> 3.0"
+    }
+  }
 }
