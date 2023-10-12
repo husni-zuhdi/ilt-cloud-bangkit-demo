@@ -68,6 +68,8 @@ We'll create a simple backend service that stores user data in an SQL database. 
    ILT_NAME="ilt-4"
    CLOUDSQL_NAME_PREFIX="<you_prefered_prefix>"
    SUBNET_IP_RANGE="11.1.0.0/16"
+   PRIVATE_IP_FIRST_ADDRESS="11.255.0.0"
+   SVPC_IP_RANGE="11.254.0.0/28"
    EOT
    export $(xargs < .env)
    ```
@@ -87,6 +89,8 @@ We'll create a simple backend service that stores user data in an SQL database. 
    export TF_VAR_master_user_password="$DB_PASSWORD"
    export TF_VAR_subnet_ip_range="$SUBNET_IP_RANGE"
    export TF_VAR_subnet_region="$REGION"
+   export TF_VAR_private_ip_first_address="$PRIVATE_IP_FIRST_ADDRESS"
+   export TF_VAR_svpc_connector_ip_range="$SVPC_IP_RANGE"
    ```
 5. Got to `infra/ilt-4/gcp-vpc` to create a new VPC network with a subnet, private service connection, and serverless VPC access
    ```
