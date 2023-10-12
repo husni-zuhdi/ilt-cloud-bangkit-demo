@@ -1,8 +1,3 @@
-# ---------------------------------------------------------------------------------------------------------------------
-# REQUIRED PARAMETERS
-# These variables are expected to be passed in by the operator
-# ---------------------------------------------------------------------------------------------------------------------
-
 variable "project" {
   description = "The project ID to host the database in."
   type        = string
@@ -43,11 +38,6 @@ variable "db_name" {
   description = "Name for the db"
   type        = string
 }
-
-# ---------------------------------------------------------------------------------------------------------------------
-# OPTIONAL PARAMETERS
-# Generally, these values won't need to be changed.
-# ---------------------------------------------------------------------------------------------------------------------
 
 variable "postgres_version" {
   description = "The engine version of the database, e.g. `POSTGRES_12`. See https://cloud.google.com/sql/docs/db-versions for supported versions."
