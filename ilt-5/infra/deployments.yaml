@@ -1,40 +1,10 @@
+imports:
+  - path: network-tpl.py
+  - path: subnet-tpl.py
+  - path: firewall-tpl.py
+  - path: compute-engine-tpl.py
+  - path: deployments.py
+
 resources:
-# Create Virtual Machine
-- name: deployment-manager-machine
-  type: compute.v1.instance
-  properties:
-    description: "Deployment Manager Virtual Machine"
-    zone: asia-southeast1-c
-    machineType: https://www.googleapis.com/compute/v1/projects/husni-development/zones/asia-southeast1-c/machineTypes/f1-micro
-    disks:
-    - deviceName: boot
-      type: PERSISTENT
-      boot: true
-      autoDelete: true
-      initializeParams:
-        sourceImage: https://www.googleapis.com/compute/v1/projects/debian-cloud/global/images/family/debian-11
-    networkInterfaces:
-    - network: $(ref.deployment-manager-network.selfLink)
-      subnetwork: $(ref.deployment-manager-sub-network.selfLink)
-      accessConfigs:
-      - name: External NAT
-        type: ONE_TO_ONE_NAT
-
-# Create a Virtual Private Network
-- name: deployment-manager-network
-  type: compute.v1.network
-  properties:
-    autoCreateSubnetworks: false
-    description: "Deployment Manager Virtual Private Network"
-    mtu: 1460
-    routingConfig:
-      routingMode: REGIONAL
-
-# Create a sub-network inside a Virtual Private Network
-- name: deployment-manager-sub-network
-  type: compute.v1.subnetwork
-  properties:
-    description: "Deployment Manager subnetwork inside deployment-manager-network VPC"
-    network: $(ref.deployment-manager-network.selfLink)
-    ipCidrRange: "12.1.0.0/16"
-    region: "asia-southeast1"
+  - name: deployment
+    type: deployments.py
