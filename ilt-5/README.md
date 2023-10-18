@@ -1,6 +1,6 @@
-# ILT 5 Demo:  Create simple webserver and break it!
+# ILT 5 Create simple webserver and break it!
 
-We'll create a simple webserver and deploy it to Cloud Run with Cloud Deployment Manager.
+We'll create a simple webserver and deploy it to Compute Engine with Cloud Deployment Manager.
 
 Then we'll test it with Postman and will monitor our application from Monitoring and check the logs with Logging.
 
