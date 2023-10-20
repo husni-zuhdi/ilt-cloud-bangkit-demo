@@ -1,0 +1,10 @@
+imports:
+  - path: network-tpl.py
+  - path: subnet-tpl.py
+  - path: firewall-tpl.py
+  - path: compute-engine-tpl.py
+  - path: deployments.py
+
+resources:
+  - name: deployment
+    type: deployments.py
