@@ -7,6 +7,8 @@ NETWORK_NAME = "-".join([DEPLOYMENT_NAME, "vpc"])
 # Cloud IAP IP ranges for SSH
 SSH_FW_SOURCE_RANGES = ["35.235.240.0/20"]
 SSH_FW_ALLOWED_RULES = [{"IPProtocol": "TCP", "ports": ["22"]}]
+HTTP_FW_SOURCE_RANGES = ["0.0.0.0/0"]
+HTTP_FW_ALLOWED_RULES = [{"IPProtocol": "TCP", "ports": ["80"]}]
 SUBNET_IP_RANGE = "12.1.0.0/16"
 SUBNET_NAME = "-".join([NETWORK_NAME, REGION, "subnet"])
 # Change SA_EMAIL with service account email from terraform output
@@ -40,7 +42,18 @@ def GenerateConfig(unused_context):
                 "network": NETWORK_NAME,
                 "sourceRanges": SSH_FW_SOURCE_RANGES,
                 "allowed": SSH_FW_ALLOWED_RULES,
-                "targetTags": ["ilt-5"],
+                "targetTags": [DEPLOYMENT_NAME],
+            },
+        },
+        # Create HTTP Firewall
+        {
+            "name": "-".join([DEPLOYMENT_NAME, "http-firewall"]),
+            "type": "firewall-tpl.py",
+            "properties": {
+                "network": NETWORK_NAME,
+                "sourceRanges": HTTP_FW_SOURCE_RANGES,
+                "allowed": HTTP_FW_ALLOWED_RULES,
+                "targetTags": [DEPLOYMENT_NAME],
             },
         },
         # Create Google Compute Engine
