@@ -1,14 +1,11 @@
-# ILT 5 Create simple webserver and break it!
+# ILT 5 Create Vritual Machine with Google Deployment Manager
 
 We'll create a simple webserver and deploy it to Compute Engine with Cloud Deployment Manager.
 
-Then we'll test it with Postman and will monitor our application from Monitoring and check the logs with Logging.
-
 ## Stacks
 
-* Golang Programming Language v1.19
-* [Echo Framework](https://github.com/labstack/echo)
-* [docker (compose)](https://www.docker.com/)
+* Google Deployment Manager
+* Terrafrorm
 
 ## Development Step
 
@@ -35,7 +32,11 @@ Then we'll test it with Postman and will monitor our application from Monitoring
    export TF_VAR_sa_name="$SA_NAME"
    export TF_VAR_sa_display_name="$SA_DISPLAY_NAME"
    ```
-1. Go to `ilt-5/infra/deployment-manager` and deploy our application and infra with Cloud Deployment Manager
+3. Go to `ilt-5/infra/deployment-manager` and deploy our application and infra with Cloud Deployment Manager
    ```
    gcloud deployment-manager deployments create deployments --config deployments.yaml
    ```
+
+## References
+* [Deployment Manager Example by steps](https://github.com/GoogleCloudPlatform/deploymentmanager-samples/tree/59f289993c8078aced16a177f3c0efe9a7efa736/examples/v2/step_by_step_guide)
+* [Deployment Manager supported resources list](https://cloud.google.com/deployment-manager/docs/configuration/supported-resource-types#apis_for_supported_resources)
