@@ -32,7 +32,11 @@ We'll create a simple webserver and deploy it to Compute Engine with Cloud Deplo
    export TF_VAR_sa_name="$SA_NAME"
    export TF_VAR_sa_display_name="$SA_DISPLAY_NAME"
    ```
-3. Go to `ilt-5/infra/deployment-manager` and deploy our application and infra with Cloud Deployment Manager
+3. Got to `ilt-5/infra/gcp-service-account` to create a new service account that will be used by Virtual Machine
+   ```
+   terraform apply # Then type yes
+   ```
+4. Go to `ilt-5/infra/deployment-manager` and deploy our application and infra with Cloud Deployment Manager
    ```
    gcloud deployment-manager deployments create deployments --config deployments.yaml
    ```
