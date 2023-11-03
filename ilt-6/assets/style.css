@@ -1,0 +1,199 @@
+/* Global CSS customization */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+/* Body CSS Customization */
+body {
+    /* Use background-image */
+    /* background-image: url("black_cat.jpg"); */
+    background-color: #626520;
+    font-family:helvetica;
+}
+
+/* Heading CSS Customization */
+h1, h2 {text-align:center; font-family:verdana;}
+h1 {font-size:xx-large;}
+h2 {font-size:x-large;}
+
+/* Paragraph CSS Customization */
+p {
+    padding: 10px;
+    margin: 5px;
+}
+
+/* List CSS Customization */
+ul, ol, li {
+    /* padding-left: 15px; */
+    /* margin-left: 15px; */
+}
+
+/* Form CSS Customization */
+form, blockquote, q {
+    padding: 10px;
+    margin: 5px;
+}
+
+/* Blockquote and q(uote) CSS Customization */
+blockquote {color:#3D91E0;}
+q {font-style: italic; text-align: center}
+
+img {
+    /* For floating image */
+    /* float:left; */
+
+    /* For responsive website, use width with percentage */
+    width:100%;
+
+    /* Or use max-width with percentage */
+    /* max-width:100%; */
+    /* height:auto; */
+}
+
+/* Different syling for anchor */
+a:link {color: blue;}
+a:visited {color: purple;}
+a:hover {color: green;}
+a:active {color: yellow;}
+
+/* Table Border*/
+table, th, td {
+    border: 1px solid black;
+    /* Border-Collapse to avoid double border */
+    border-collapse: collapse;
+}
+
+/* Table Center */
+table {margin-left: auto;margin-right: auto;}
+
+/* Colorize inside table */
+th, td {
+    /* border-style to set style of border for example: dotted, dashbed, solid, etc */
+    /* border-style: dotted; */
+    border-color: #952B60;
+    /* background-color a homogonize way to set background color inside table */
+    /* background-color: white; */
+    text-align: left;
+}
+
+/* Hoverable Table */
+tr:hover {background-color: #3D91E0;}
+
+/* Grid Container */
+.grid-container {
+    display: grid;
+    grid-template-areas:
+        /* 'header header header header header' */
+        /* 'left mid mid mid mid' */
+        /* 'footer footer footer footer footer'; */
+        'header header header header header' 
+        'left left left left left' 
+        'mid mid mid mid mid' 
+        'footer footer footer footer footer';
+}
+
+/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+@media (min-width: 600px) {
+  .grid-container  {
+    grid-template-areas: 
+      /* 'header header header header header'  */
+      /* 'left left left left left'  */
+      /* 'mid mid mid mid mid'  */
+      /* 'footer footer footer footer footer'; */
+        'header header header header header'
+        'left mid mid mid mid'
+        'footer footer footer footer footer';
+  }
+}
+
+/* Define Grids Sub-area */
+.header {
+  grid-area: header;
+  padding: 30px;
+}
+
+.left,
+.mid,
+.footer {
+    padding: 10px;
+}
+
+.left {
+    grid-area: left;
+}
+
+.mid {
+    grid-area: mid;
+}
+
+.footer {
+    grid-area: footer;
+    margin: 10px;
+}
+
+/* Class and ID CSS Customization */
+/* Navbar */
+.navbar {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+.nav-item {
+  float: left;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 16px;
+  text-decoration: none;
+}
+
+/* Hero */
+.hero {
+  /* background-image: url(""); */
+  color: #ffffff;
+  background-image: url("https://images.unsplash.com/photo-1526674183561-4bfb419ab4e5?auto=format&fit=crop&q=60&w=900&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fG9yYW5nZSUyMGNhdHxlbnwwfHwwfHx8MA%3D%3D");
+  background-color: #952B60;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  text-align: center;
+  font-size: x-large;
+}
+
+.intro,
+.pet,
+.funfact,
+.footer {
+    background-color: #F1B620;
+    margin: 20px;
+    padding: 20px;
+}
+/* Create CSS Class Pet */
+.pet {
+    /* background-color: darkblue; */
+    /* color: white; */
+    /* border: 2px solid white; */
+}
+
+/* Create CSS Class Funfact */
+.funfact {
+    /* background-color: darkblue; */
+    /* color: white; */
+    /* border: 2px solid white; */
+}
+
+/* Create CSS Class Footer */
+.footer {
+    margin: 10px;
+    padding: 10px;
+    text-align: center;
+}
+
+/* Create CSS Class Cute for a b(old) */
+.cute {color: #952B60;}
+
+/* Create CSS Class for Bookmark */
+.bookmark {list-style-type: none; text-align: center;}
