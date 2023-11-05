@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <title>Pets: Human Friends</title>
+        <link rel="icon" type="image/x-icon" href="favicon.ico">
+        <!-- Setup Metadatas -->
+        <meta charset="UTF-8"> 
+        <meta name="description" content="Pet as human friends">
+        <meta name="author" content="Husni Zuhdi">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    </head>
+    <body class="has-navbar-fixed-top">
+        <div class="columns">
+            <div class="column is-full">
+                <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+                  <div class="navbar-brand">
+                    <a class="navbar-item" href="#Title">
+                        🐱 PFA
+                    </a>
+
+                    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+                      <span aria-hidden="true"></span>
+                      <span aria-hidden="true"></span>
+                      <span aria-hidden="true"></span>
+                    </a>
+                  </div>
+
+                <div id="navbarBasicExample" class="navbar-menu">
+                    <div class="navbar-start">
+                      <a class="navbar-item">
+                        🏠 Home
+                      </a>
+
+                      <a class="navbar-item">
+                        ℹ️  About
+                      </a>
+                    </div>
+
+                    <!-- Turn off Sign up and Login -->
+                    <!-- <div class="navbar-end"> -->
+                    <!--   <div class="navbar-item"> -->
+                    <!--     <div class="buttons"> -->
+                    <!--       <a class="button is-primary"> -->
+                    <!--         <strong>Sign up</strong> -->
+                    <!--       </a> -->
+                    <!--       <a class="button is-light"> -->
+                    <!--         Log in -->
+                    <!--       </a> -->
+                    <!--     </div> -->
+                    <!--   </div> -->
+                    <!-- </div> -->
+                  </div>
+                </nav>
+                <section class="hero">
+                  <div id="Title" class="hero-body">
+                    <p class="title has-text-centered">
+                      🐈 🦮 Pet: Human Friends
+                    </p>
+                  </div>
+                </section>
+            </div>
+        </div>
+
+        <div class="columns">
+            <div class="column is-one-fifth"></div>
+            <div class="column is-one-fifth">
+                <!-- There are 4 target types: _self, _blank, _parent, and _top -->
+                <!-- _self, _parent, _top: Will open hyperlink in current tab (Need to research more) -->
+                <!-- _blank: Will open a new tab -->
+                <div class="box">
+                    <p>Based on <a href="https://en.wikipedia.org/wiki/Pet" target="_blank">Wikipedia</a>:<br>
+                        <q>A pet, or companion animal, is an animal kept primarily for a person's company or entertainment rather than as a working animal, livestock, or a laboratory animal.</q>
+                    </p>
+                    <p>Example of animals that can be pets are:</p>
+                    <ul>
+                        <li><a href="#Cat">🐈 Cat</a></li>
+                        <li><a href="#Dog">🦮 Dog</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="column">
+                <div id="Cat" class="box content">
+                    <h2 title="Cat" class="has-text-centered">Cat</h2>
+                    <p>This is a Cat</p>
+                    <p>Cat is a <b>cute</b> animal</p>
+                    <p>Cat is called <i>feles</i> in latin</p>
+                    <p>In Indonesia, cat is called <ins><mark>kucing</mark></ins></p>
+                    <!-- Image with an anchor to wikipedia website -->
+                    <a href="https://en.wikipedia.org/wiki/Cat">
+                        <figure class="image">
+                            <img src="manja_cat.jpg" alt="Image of a cat">
+                        </figure>
+                    </a>
+                    <p>Here is a quote from Wikipedia website about cat</p>
+                    <blockquote cite="https://en.wikipedia.org/wiki/Cat">
+                        The cat (Felis catus), commonly referred to as the domestic cat or house cat, is the only domesticated species in the family Felidae.
+                    </blockquote>
+                </div>
+
+                <div id="Dog" class="box content">
+                    <h2 title="Dog" class="has-text-centered">Dog</h2>
+                    <p>This is a Dog</p>
+                    <p>Dog also a <b>cute</b> animal</p>
+                    <p>Dog is called <i>canis</i> in latin</p>
+                    <p>In Indonesia, dog is called <ins><mark>anjing</mark></ins></p>
+                    <!-- Image with an anchor to wikipedia website -->
+                    <a href="https://en.wikipedia.org/wiki/Dog">
+                        <img src="pauline_dog.jpg" alt="Image of a dog">
+                    </a>
+                    <p>Here is a quote from Wikipedia website about dog</p>
+                    <blockquote cite="https://en.wikipedia.org/wiki/Dog">
+                        The dog (Canis familiaris or Canis lupus familiaris) is a domesticated descendant of the wolf. Also called the domestic dog, it is derived from extinct Pleistocene wolves, and the modern wolf is the dog's nearest living relative.
+                    </blockquote>
+                </div>
+
+                <div id="MostPopularPetsUS" class="box content">
+                    <table class="table is-hoverable">
+                        <caption>Most Popular Pets in US</caption>
+                        <tr>
+                            <th>Pet</th>
+                            <th>Population (millions)</th>
+                        </tr>
+                        <tr>
+                            <td>Cat</td>
+                            <td>93.6</td>
+                        </tr>
+                        <tr>
+                            <td>Dog</td>
+                            <td>77.5</td>
+                        </tr>
+                        <tr>
+                            <td>Fish</td>
+                            <td>171.7</td>
+                        </tr>
+                        <tr>
+                            <td>Small Mammals</td>
+                            <td>15.9</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="column is-one-fifth"></div>
+        </div>
+
+        <div class="columns">
+            <div class="column is-full has-text-centered">
+                <div id="Footer" class="footer">
+                    <!-- Use Bookmark to jump to header with id C1 -->
+                    <a href="#Title">🔝 Jump to top</a><br>
+                    <address>
+                        Pet Fictional Association <br>
+                        Somewhere in Indonesia <br>
+                        +62 812 3456 78910 <br>
+                        <!-- Anchor to Email with mailto -->
+                        <a href="mailto:husninaufalz@gmail.com">husninaufalz@gmail.com</a>
+                    </address>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
