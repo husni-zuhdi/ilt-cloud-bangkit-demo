@@ -1,15 +1,10 @@
-variable "project" {
+variable "project_id" {
   description = "The project ID to where VPC will created."
   type        = string
 }
 
-variable "vpc_name" {
-  description = "The name of VPC."
-  type        = string
-}
-
-variable "subnet_name" {
-  description = "The name of single ubnet inside VPC."
+variable "ilt_name" {
+  description = "Name of the ILT session."
   type        = string
 }
 
