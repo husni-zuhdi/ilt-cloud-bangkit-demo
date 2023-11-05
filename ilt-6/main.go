@@ -1,11 +1,12 @@
 package main
 
 import (
-    "context"
-    "os"
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
-    component := hello("John")
-    component.Render(context.Background(), os.Stdout)
+	router := gin.Default()
+	router.Static("/", "./assets")
+
+    router.Run(":8080")
 }
