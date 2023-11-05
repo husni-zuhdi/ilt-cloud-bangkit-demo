@@ -1,0 +1,9 @@
+name: ilt-6
+version: "3"
+
+services:
+  service:
+    image: ilt6:0.1.0-alpha
+    ports:
+      - 8080:8080
+    restart: always
