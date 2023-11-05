@@ -8,5 +8,5 @@ func main() {
 	router := gin.Default()
 	router.Static("/", "./assets")
 
-    router.Run(":8080")
+    router.Run(":80")
 }

@@ -18,7 +18,7 @@ WORKDIR /
 COPY --from=build-stage /ilt-6 /ilt-6
 COPY assets ./assets
 
-EXPOSE 8080
+EXPOSE 80
 
 USER nonroot:nonroot
 
