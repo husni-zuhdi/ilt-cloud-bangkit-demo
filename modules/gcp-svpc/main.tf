@@ -27,6 +27,6 @@ resource "google_vpc_access_connector" "svpc_connector" {
   machine_type  = var.svpc_connector_machine_type
   min_instances = var.svpc_connector_min_instances
   max_instances = var.svpc_connector_max_instances
-  region        = var.subnet_region
+  region        = var.region
   ip_cidr_range = var.svpc_connector_ip_range
 }
