@@ -1,0 +1,32 @@
+version: '3'
+
+vars:
+  PROJECT_NAME:
+    sh: basename $(pwd)
+
+tasks:
+  # Setup environment
+  conda-create:
+    summary: Create conda env.
+    cmds:
+      - conda create -n {{.PROJECT_NAME}} python=3.11.0
+
+  conda-install:
+    summary: Install conda requirements.
+    cmds:
+      - conda install --file conda.requirements.txt
+
+  pip-install:
+    summary: Install pip requirements.
+    cmds:
+      - pip install -r pip.requirements.txt
+
+  conda-req:
+    summary: Save current conda requirements.
+    cmds:
+      - conda list -e -n {{.PROJECT_NAME}} | grep -v "pypi_0" > conda.requirements.txt
+
+  pip-req:
+    summary: Save current pip requirements.
+    cmds:
+      - pip freeze | grep -v "@" > pip.requirements.txt
