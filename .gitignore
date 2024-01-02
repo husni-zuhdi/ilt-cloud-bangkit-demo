@@ -1,5 +1,5 @@
 # Ignore Created Machine Learning Model
-./capstone/model/
+capstone/model/
 **/.env
 **/.terraform/*
 **/*.tfstate*
