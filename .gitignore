@@ -4,3 +4,5 @@ capstone/model/
 **/.terraform/*
 **/*.tfstate*
 **/*.tfstate
+**/.ipynb_checkpoints/*
+**/__pycache__/*
