@@ -12,8 +12,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def hello_world():
-    name = os.environ.get("NAME", "World")
-    return "Hello Bambang {}!".format(name)
+    return "Hello World!"
 
 @app.route("/predict", methods = ["POST"])
 def predict():
