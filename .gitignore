@@ -2,3 +2,7 @@
 **/.terraform/*
 **/*.tfstate*
 **/*.tfstate
+**/.ipynb_checkpoints/*
+**/__pycache__/*
+# Ignore Created Machine Learning Model
+**/model/*
